@@ -1,53 +1,62 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Streamlit App Catalog</title>
+    <title>Catalogo Organizzazione</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            text-align: center;
         }
-        .app-list {
+        .catalogo {
             display: flex;
             flex-wrap: wrap;
-            justify-content: center;
         }
-        .app-item {
-            margin: 15px;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            width: 250px;
-        }
-        .app-item img {
-            width: 100%;
-            height: auto;
-        }
-        .app-item a {
-            display: block;
-            margin-top: 10px;
-            padding: 10px;
-            background-color: #007bff;
-            color: white;
-            text-decoration: none;
+        .riquadro {
+            border: 1px solid #ddd;
             border-radius: 5px;
+            padding: 20px;
+            margin: 10px;
+            width: calc(33% - 40px);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-        .app-item a:hover {
-            background-color: #0056b3;
+        .riquadro h2 {
+            margin-top: 0;
+        }
+        .riquadro p {
+            margin: 5px 0;
+        }
+        .riquadro button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .riquadro button:hover {
+            background-color: #45a049;
         }
     </style>
 </head>
 <body>
-    <h1>My Streamlit App Catalog</h1>
-    <div class="app-list">
-        <div class="app-item">
-            <img src="catalogue_icon.PNG" alt="App 1 Screenshot">
-            <h2>Application 1</h2>
-            <a href="http://34.173.89.181:8010/" target="_blank">Open App</a>
+    <h1>Catalogo Organizzazione</h1>
+    <div class="catalogo">
+        <div class="riquadro">
+            <h2>Organizzazione 1</h2>
+            <p>Elenco Membri: Mario Rossi, Luigi Bianchi</p>
+            <p>Email: org1@example.com</p>
+            <p>Numero di Telefono: 123-456-7890</p>
+            <button onclick="window.location.href='prova.html';">Catalogo</button>
         </div>
-        <!-- Add more apps as needed -->
+        <div class="riquadro">
+            <h2>Organizzazione 2</h2>
+            <p>Elenco Membri: Anna Verdi, Paolo Neri</p>
+            <p>Email: org2@example.com</p>
+            <p>Numero di Telefono: 098-765-4321</p>
+            <button onclick="window.location.href='https://www.org2.com';">Vai al sito</button>
+        </div>
+        <!-- Aggiungi altri riquadri per altre organizzazioni qui -->
     </div>
 </body>
 </html>

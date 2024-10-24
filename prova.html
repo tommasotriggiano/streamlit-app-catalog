@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catalogo Applicazioni</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .catalogo {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .riquadro {
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 20px;
+            width: 250px;
+            text-align: center;
+        }
+        .riquadro img {
+            width: 100px;
+            height: 100px;
+        }
+        .riquadro button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .riquadro button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Catalogo</h1>
+    <div class="catalogo">
+        <div class="riquadro">
+            <img src="bot.png" alt="Icona Applicazione 1">
+            <h2>Summarization and Q&A Demo</h2>
+            <p>Use Case GenAI sui dati di bilancio</p>
+            <button onclick="window.location.href='https://www.app1.com';">Vai all'applicazione</button>
+        </div>
+        <div class="riquadro">
+            <img src="icona2.png" alt="Icona Applicazione 2">
+            <h2>Applicazione 2</h2>
+            <p>Descrizione breve dell'applicazione 2.</p>
+            <button onclick="window.location.href='https://www.app2.com';">Vai al sito</button>
+        </div>
+        <!-- Aggiungi altri riquadri simili per altre app -->
+    </div>
+</body>
+</html>
