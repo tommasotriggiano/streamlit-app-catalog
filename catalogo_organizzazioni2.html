@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catalogo Organizzazione</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .catalogo {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .riquadro {
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 20px;
+            width: 250px;
+            text-align: center;
+        }
+        .riquadro button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .riquadro button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Catalogo Organizzazione</h1>
+    <div class="catalogo" id="catalogo"></div>
+
+    <script>
+        async function fetchCSV() {
+            const response = await fetch('organizzazioni.csv');
+            const data = await response.text();
+            return data;
+        }
+
+        function parseCSV(data) {
+            const lines = data.split('\n');
+            const headers = lines[0].split(',');
+            const rows = lines.slice(1).map(line => {
+                const values = line.split(',');
+                let obj = {};
+                headers.forEach((header, index) => {
+                    obj[header.trim()] = values[index].trim();
+                });
+                return obj;
+            });
+            return rows;
+        }
+
+        function createCard(org) {
+            const card = document.createElement('div');
+            card.className = 'riquadro';
+            card.innerHTML = `
+                <h2>${org.nome}</h2>
+                <p>Elenco Membri: ${org.elenco_membri}</p>
+                <p>Email: ${org.email}</p>
+                <p>Numero di Telefono: ${org.telefono}</p>
+                <button onclick="window.location.href='${org.link}';">Vai al sito</button>
+            `;
+            return card;
+        }
+
+        async function loadOrganizations() {
+            const csvData = await fetchCSV();
+            const orgs = parseCSV(csvData);
+            const catalogo = document.getElementById('catalogo');
+            orgs.forEach(org => {
+                const card = createCard(org);
+                catalogo.appendChild(card);
+            });
+        }
+
+        loadOrganizations();
+    </script>
+</body>
+</html>

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dettaglio Applicazione</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+        .back-button {
+            align-self: flex-start;
+            background-color: transparent;
+            border: none;
+            color: #000;
+            font-size: 1em;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .back-button:hover {
+            text-decoration: underline;
+        }
+        .back-button svg {
+            margin-right: 5px;
+        }
+        .container {
+            display: flex;
+            align-items: flex-start;
+            width: 100%;
+            max-width: 800px;
+        }
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 20px;
+            margin-right: 20px;
+        }
+        .sidebar img {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 20px;
+        }
+        .sidebar button {
+            background-color: #000;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .sidebar button:hover {
+            background-color: #333;
+        }
+        .content {
+            flex: 1;
+            text-align: left;
+        }
+        .content h1 {
+            text-align: center;
+            font-size: 2em;
+            margin: 0;
+        }
+        .separator {
+            width: 100%;
+            height: 1px;
+            background-color: #ddd;
+            margin: 20px 0;
+        }
+        .content h2 {
+            font-size: 1.2em;
+            color: #666;
+            margin-top: 10px;
+        }
+        .details {
+            margin-top: 20px;
+        }
+        .details p {
+            margin: 5px 0;
+        }
+        .details .label {
+            font-weight: bold; /* Testo in grassetto per le etichette */
+        }
+        .details .categoria {
+            margin-top: 20px;
+            background-color: #4CAF50;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            font-weight: bold;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <button class="back-button" onclick="window.history.back();">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M15 8a.5.5 0 0 1-.5.5H2.707l3.147 3.146a.5.5 0 0 1-.708.708l-4-4a.5.5 0 0 1 0-.708l4-4a.5.5 0 0 1 .708.708L2.707 7.5H14.5A.5.5 0 0 1 15 8z"/>
+        </svg>
+        Torna Indietro
+    </button>
+    <div class="container">
+        <div class="sidebar" id="dettaglio">
+            <img id="appIcon" src="" alt="Icona Applicazione">
+            <button id="appLink">Avvia</button>
+        </div>
+        <div class="content">
+            <h1 id="appName"></h1>
+            <div class="separator"></div>
+            <h2 id="appDescription"></h2>
+            <div class="details">
+                <p><span class="label">Referente:</span> <span id="appReferente"></span></p>
+                <p><span class="label">Email:</span> <span id="appEmail"></span></p>
+                <p><span class="label">Telefono:</span> <span id="appTelefono"></span></p>
+                <div id="appCategoria" class="categoria"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function getQueryParams() {
+            const params = new URLSearchParams(window.location.search);
+            return {
+                nome: params.get('nome'),
+                descrizione: params.get('descrizione'),
+                link: params.get('link'),
+                immagine: params.get('immagine'),
+                referente: params.get('referente'),
+                email: params.get('email'),
+                telefono: params.get('telefono'),
+                categoria: params.get('categoria')
+            };
+        }
+
+        function renderDetail() {
+            const app = getQueryParams();
+            document.getElementById('appName').textContent = app.nome;
+            document.getElementById('appDescription').textContent = app.descrizione;
+            document.getElementById('appIcon').src = app.immagine;
+            document.getElementById('appLink').onclick = () => window.location = app.link;
+            document.getElementById('appReferente').textContent = app.referente;
+            document.getElementById('appEmail').textContent = app.email;
+            document.getElementById('appTelefono').textContent = app.telefono;
+            document.getElementById('appCategoria').textContent = app.categoria;
+        }
+
+        renderDetail();
+    </script>
+</body>
+</html>

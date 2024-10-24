@@ -1,3 +1,4 @@
-nome,descrizione,link,immagine
-FRM GENAI Use Cases,Summarization & Q&A sui dati di bilancio,http://34.173.89.181:8020/,bot.png
-Applicazione 2,Descrizione 2,https://www.app2.com,bot.png
+nome,descrizione,link,immagine,referente,numero_di_telefono,email,categoria
+Summarization & Q&A,Tool per analisi sui dati di bilancio,http://34.173.89.181:8020/,app2.png,Francesia Simone,123-456-7890,prova@deloitte.it,AI
+Generazione Automatica dei Controlli,Strumento per l'identificazione di possibili controlli di 1° e 2° livello,https://www.google.com,bot.png,Giovanna Simone,123-456-7890,prova@deloitte.it,web
+Applicazione 3,Descrizione 3,https://www.google.com,app3.png,Enrico Simone,123-456-7890,ciao@deloitte.it,web

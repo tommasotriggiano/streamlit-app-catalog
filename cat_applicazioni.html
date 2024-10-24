@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catalogo Applicazioni</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .catalogo {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .riquadro {
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 20px;
+            width: 250px;
+            text-align: center;
+        }
+        .riquadro img {
+            width: 100px;
+            height: 100px;
+        }
+        .riquadro button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .riquadro button:hover {
+            background-color: #45a049;
+        }
+        
+    </style>
+</head>
+<body>
+    <h1>Catalogo Applicazioni</h1>
+    
+    <div class="catalogo" id="catalogo"></div>
+
+    <script>
+        async function fetchCSV() {
+            const response = await fetch('applicazioni.csv');
+            const data = await response.text();
+            return data;
+        }
+
+        function parseCSV(data) {
+            const lines = data.split('\n');
+            const headers = lines[0].split(',');
+            const rows = lines.slice(1).map(line => {
+                const values = line.split(',');
+                let obj = {};
+                headers.forEach((header, index) => {
+                    obj[header.trim()] = values[index].trim();
+                });
+                return obj;
+            });
+            return rows;
+        }
+
+        function createCard(app) {
+            const card = document.createElement('div');
+            card.className = 'riquadro';
+            card.innerHTML = `
+                <img src="${app.immagine}" alt="Icona ${app.nome}">
+                <h2>${app.nome}</h2>
+                <p>${app.descrizione}</p>
+                <button onclick="window.location.href='${app.link}';">Vai all'applicazione</button>
+            `;
+            return card;
+        }
+
+        async function loadApplications() {
+            const csvData = await fetchCSV();
+            const apps = parseCSV(csvData);
+            const catalogo = document.getElementById('catalogo');
+            apps.forEach(app => {
+                const card = createCard(app);
+                catalogo.appendChild(card);
+            });
+        }
+
+        loadApplications();
+    </script>
+</body>
+</html>

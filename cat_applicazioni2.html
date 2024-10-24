@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catalogo Applicazioni</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .search-container {
+            margin: 20px;
+            text-align: center;
+        }
+        .search-container input {
+            padding: 10px;
+            width: 500px; /* Aumenta la larghezza della barra di ricerca */
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .catalogo {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .riquadro {
+            border: 3px solid #ddd; /* Cornice più spessa */
+            border-radius: 10px;
+            padding: 20px;
+            width: 300px;
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+            transition: border-color 0.3s;
+        }
+        .riquadro:hover {
+            border-color: #4CAF50;
+        }
+        .riquadro img {
+            width: 50px; /* Icona più piccola */
+            height: 50px;
+            margin-bottom: 10px;
+            align-self: flex-start; /* Posiziona l'icona in alto a sinistra */
+        }
+        .riquadro .details {
+            text-align: left;
+            font-size: 0.9em; /* Font più piccolo */
+        }
+        .riquadro .details h2 {
+            margin: 0;
+            font-size: 1.2em; /* Font più piccolo per il titolo */
+            font-weight: bold; /* Titolo in grassetto */
+        }
+        .riquadro .details p {
+            margin: 5px 0 0 0;
+        }
+        .riquadro .details .referente,
+        .riquadro .details .email {
+            font-size: 0.8em; /* Font più piccolo per referente ed email */
+            font-weight: bold; /* Referente ed email in grassetto */
+        }
+        .riquadro .details .categoria {
+            margin-top: 10px;
+            font-size: 0.8em;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <h1>Catalogo Applicazioni</h1>
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Cerca applicazione, referente o categoria..." oninput="filterApplications()">
+    </div>
+    <div class="catalogo" id="catalogo"></div>
+
+    <!-- Includi PapaParse da CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <script>
+        let applications = [];
+
+        async function fetchCSV() {
+            const response = await fetch('applicazioni.csv');
+            const data = await response.text();
+            return data;
+        }
+
+        function parseCSV(data) {
+            return Papa.parse(data, {
+                header: true,
+                skipEmptyLines: true
+            }).data;
+        }
+
+        function createCard(app) {
+            const card = document.createElement('div');
+            card.className = 'riquadro';
+            card.innerHTML = `
+                <img src="${app.immagine}" alt="Icona ${app.nome}">
+                <div class="details">
+                    <h2>${app.nome}</h2>
+                    <p>${app.descrizione}</p>
+                    <p class="referente">Referente: ${app.referente}</p>
+                    <p class="email">Email: ${app.email}</p>
+                    <p class="categoria">Categoria: ${app.categoria}</p>
+                </div>
+            `;
+            card.addEventListener('click', () => {
+                window.location.href = `dettaglio.html?nome=${encodeURIComponent(app.nome)}&descrizione=${encodeURIComponent(app.descrizione)}&link=${encodeURIComponent(app.link)}&immagine=${encodeURIComponent(app.immagine)}&referente=${encodeURIComponent(app.referente)}&telefono=${encodeURIComponent(app.numero_di_telefono)}&email=${encodeURIComponent(app.email)}&categoria=${encodeURIComponent(app.categoria)}`;
+            });
+            return card;
+        }
+
+        function renderApplications(apps) {
+            const catalogo = document.getElementById('catalogo');
+            catalogo.innerHTML = '';
+            apps.forEach(app => {
+                const card = createCard(app);
+                catalogo.appendChild(card);
+            });
+        }
+
+        function filterApplications() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const filteredApps = applications.filter(app => 
+                app.nome.toLowerCase().includes(query) || 
+                app.referente.toLowerCase().includes(query) ||
+                app.categoria.toLowerCase().includes(query)
+            );
+            renderApplications(filteredApps);
+        }
+
+        async function loadApplications() {
+            const csvData = await fetchCSV();
+            applications = parseCSV(csvData);
+            renderApplications(applications);
+        }
+
+        loadApplications();
+    </script>
+</body>
+</html>
