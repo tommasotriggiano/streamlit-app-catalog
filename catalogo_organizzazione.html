@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catalogo Organizzazione</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .catalogo {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .riquadro {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 10px;
+            width: calc(33% - 40px);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .riquadro h2 {
+            margin-top: 0;
+        }
+        .riquadro p {
+            margin: 5px 0;
+        }
+        .riquadro button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .riquadro button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Catalogo Organizzazione</h1>
+    <div class="catalogo">
+        <div class="riquadro">
+            <h2>Organizzazione 1</h2>
+            <p>Elenco Membri: Mario Rossi, Luigi Bianchi</p>
+            <p>Email: org1@example.com</p>
+            <p>Numero di Telefono: 123-456-7890</p>
+            <button onclick="window.location.href='prova.html';">Catalogo</button>
+        </div>
+        <div class="riquadro">
+            <h2>Organizzazione 2</h2>
+            <p>Elenco Membri: Anna Verdi, Paolo Neri</p>
+            <p>Email: org2@example.com</p>
+            <p>Numero di Telefono: 098-765-4321</p>
+            <button onclick="window.location.href='https://www.org2.com';">Vai al sito</button>
+        </div>
+        <!-- Aggiungi altri riquadri per altre organizzazioni qui -->
+    </div>
+</body>
+</html>

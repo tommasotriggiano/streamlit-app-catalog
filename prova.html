@@ -38,21 +38,53 @@
     </style>
 </head>
 <body>
-    <h1>Catalogo</h1>
-    <div class="catalogo">
-        <div class="riquadro">
-            <img src="bot.png" alt="Icona Applicazione 1">
-            <h2>Summarization and Q&A Demo</h2>
-            <p>Use Case GenAI sui dati di bilancio</p>
-            <button onclick="window.location.href='https://www.app1.com';">Vai all'applicazione</button>
-        </div>
-        <div class="riquadro">
-            <img src="icona2.png" alt="Icona Applicazione 2">
-            <h2>Applicazione 2</h2>
-            <p>Descrizione breve dell'applicazione 2.</p>
-            <button onclick="window.location.href='https://www.app2.com';">Vai al sito</button>
-        </div>
-        <!-- Aggiungi altri riquadri simili per altre app -->
-    </div>
+    <h1>Catalogo Applicazioni</h1>
+    <div class="catalogo" id="catalogo"></div>
+
+    <script>
+        async function fetchCSV() {
+            const response = await fetch('applicazioni.csv');
+            const data = await response.text();
+            return data;
+        }
+
+        function parseCSV(data) {
+            const lines = data.split('\n');
+            const headers = lines[0].split(',');
+            const rows = lines.slice(1).map(line => {
+                const values = line.split(',');
+                let obj = {};
+                headers.forEach((header, index) => {
+                    obj[header.trim()] = values[index].trim();
+                });
+                return obj;
+            });
+            return rows;
+        }
+
+        function createCard(app) {
+            const card = document.createElement('div');
+            card.className = 'riquadro';
+            card.innerHTML = `
+                <img src="${app.immagine}" alt="Icona ${app.nome}">
+                <h2>${app.nome}</h2>
+                <p>${app.descrizione}</p>
+                <button onclick="window.location.href='${app.link}';">Vai all'applicazione</button>
+            `;
+            return card;
+        }
+
+        async function loadApplications() {
+            const csvData = await fetchCSV();
+            const apps = parseCSV(csvData);
+            const catalogo = document.getElementById('catalogo');
+            apps.forEach(app => {
+                const card = createCard(app);
+                catalogo.appendChild(card);
+            });
+        }
+
+        loadApplications();
+    </script>
 </body>
 </html>
